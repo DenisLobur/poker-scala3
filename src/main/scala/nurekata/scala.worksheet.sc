@@ -1,12 +1,13 @@
 import nurekata.Suit.*
 import nurekata.Rank.*
-import nurekata.Cards.*
+import nurekata.List.*
 import nurekata.*
   
 
-val cs = Cons(Card(Ace, Spades), Cons(Card(Nine, Spades), Cons(Card(Ten, Spades), Nil)))
+val cs = Card(Ace, Spades) :: Card(Nine, Spades) ::
+   Card(Ten, Spades) :: Nil
 
-val cards = Cons(Card(Two, Hearts), cs)
+val cards = Card(Two, Hearts) :: cs
 
 filterGte10(cards)
 
@@ -17,13 +18,13 @@ cards.length
 hasRoyalFlush(cards)
 
 val rf = 
-Cons(Card(Ten, Spades),
-  Cons(Card(Queen, Spades),
-    Cons(Card(Two, Hearts),
-      Cons(Card(King, Spades),
-        Cons(Card(Ace, Spades),
-          Cons(Card(Jack, Spades),
-            Cons(Card(Five, Hearts),
+::(Card(Ten, Spades),
+  ::(Card(Queen, Spades),
+    ::(Card(Two, Hearts),
+      ::(Card(King, Spades),
+        ::(Card(Ace, Spades),
+          ::(Card(Jack, Spades),
+            ::(Card(Five, Hearts),
               Nil)
               )
             )
@@ -32,3 +33,9 @@ Cons(Card(Ten, Spades),
       )
     )
 hasRoyalFlush(rf)
+
+val rs = ranks(cards)
+cards
+cards.splitAt(2)
+sorted(rs)
+
