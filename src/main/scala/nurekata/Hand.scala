@@ -2,6 +2,8 @@ package nurekata
 
 import nurekata.List.*
 import nurekata.Rank
+import nurekata.Rank.*
+
 type Cards = List[Card]
 
 def hasRoyalFlush(cs: Cards): Boolean = 
@@ -12,13 +14,14 @@ def filterGte10(cs: Cards): List[Card] =
   cs match 
     case Nil => Nil
     case ::(c, cs) => 
-      if c.rank.value >= 10 
-      then ::(c, filterGte10(cs)) 
+      if c.rank >= Ten
+      then c :: filterGte10(cs)
       else filterGte10(cs)
 
 def sameSuit(cs: Cards): Boolean = 
   cs match 
-    case x :: y :: cs => x.suit == y.suit && sameSuit(y :: cs)
+    case x :: y :: cs => 
+      x.suit == y.suit && sameSuit(y :: cs)
     case _ => true
 
 def straight(cs: Cards) = 
@@ -28,7 +31,7 @@ def straight(cs: Cards) =
 def ranks(cs: Cards): List[Rank] = 
   cs match 
     case Nil => Nil
-    case ::(x, xs) => ::(x.rank, ranks(xs))
+    case x :: xs => x.rank :: ranks(xs)
 
 def sorted(cs: List[Rank]): List[Rank] = 
   val m = cs.length / 2

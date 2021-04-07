@@ -17,6 +17,9 @@ enum Rank:
 
   def value = ordinal + 2
 
+  def >= (that: Rank): Boolean = 
+    this.ordinal >= that.ordinal
+
   override def toString = 
     this match 
       case Ace => "A"
@@ -27,6 +30,7 @@ enum Rank:
 
 
 case class Card(rank: Rank, suit: Suit):
-  
-  override def toString = rank.toString + suit.toString
+
+  override def toString = 
+    rank.toString + suit.toString
 

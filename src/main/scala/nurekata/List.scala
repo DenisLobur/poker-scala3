@@ -7,9 +7,10 @@ enum List[+A]:
   def tail: List[A] = 
     throw new NoSuchElementException("tail of empty list")
 
-  def length: Int = this match
-    case Nil => 0
-    case c :: cs => 1 + cs.length
+  def length: Int = 
+    this match
+      case Nil => 0
+      case c :: cs => 1 + cs.length
 
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
