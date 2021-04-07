@@ -22,7 +22,8 @@ def sameSuit(cs: Cards): Boolean =
     case _ => true
 
 def straight(cs: Cards) = 
-  ranks(cs)
+  val rs = sorted(ranks(cs))
+
 
 def ranks(cs: Cards): List[Rank] = 
   cs match 
@@ -31,7 +32,8 @@ def ranks(cs: Cards): List[Rank] =
 
 def sorted(cs: List[Rank]): List[Rank] = 
   val m = cs.length / 2
-  if m == 0 then cs
+  if m == 0 
+  then cs
   else 
     val (left, right) = cs.splitAt(m)
     merge(sorted(left), sorted(right))
@@ -45,5 +47,6 @@ private def merge(left: List[Rank], right: List[Rank]): List[Rank] =
       then x :: merge(xs, right)
       else y :: merge(left, ys)
 
-
+def distinct(sorted: List[Rank]): List[Rank] = 
+  ???
   

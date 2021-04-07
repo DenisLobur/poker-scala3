@@ -38,4 +38,5 @@ val rs = ranks(cards)
 cards
 cards.splitAt(2)
 sorted(rs)
-
+cards.zip( 5 :: 4 :: 3 :: Nil)
+cards.zip(cards.tail)

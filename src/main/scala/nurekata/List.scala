@@ -2,14 +2,22 @@ package nurekata
 
 enum List[+A]: 
   case Nil
-  case ::(head: A, tail: List[A])
+  case ::(head: A, override val tail: List[A])
 
-  def ::[B >: A](a: B): List[B] = 
-    List.::(a, this)
+  def tail: List[A] = 
+    throw new NoSuchElementException("tail of empty list")
 
   def length: Int = this match
     case Nil => 0
     case c :: cs => 1 + cs.length
+
+  def ::[B >: A](a: B): List[B] = 
+    List.::(a, this)
+
+  def zip[B](that: List[B]): List[(A, B)] = 
+    (this, that) match 
+      case (x :: xs, y :: ys) => (x, y) :: xs.zip(ys)
+      case _ => Nil
 
   def splitAt(i: Int): (List[A], List[A]) = 
     (i, this) match
