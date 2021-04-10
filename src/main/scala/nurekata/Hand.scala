@@ -50,6 +50,11 @@ private def merge(left: List[Rank], right: List[Rank]): List[Rank] =
       then x :: merge(xs, right)
       else y :: merge(left, ys)
 
+// Implement distinct for Rank      
 def distinct(sorted: List[Rank]): List[Rank] = 
-  ???
+  sorted match {
+      case Nil => Nil
+      case x :: Nil => x :: Nil
+      case x :: y :: tail => if(x.value == y.value) y :: distinct(tail) else x :: y :: tail
+    }
   

@@ -27,3 +27,16 @@ cards.splitAt(2)
 sorted(rs)
 cards.zip(5 :: 4 :: 3 :: Nil)
 cards.zip(cards.tail)
+
+val list = 1::2::3::4::Nil
+val list2 = Nil.toString
+
+val cs2 = Card(Ace, Spades) :: Card(Ace, Diamonds) :: Card(Ace, Diamonds) :: Card(Nine, Spades) ::
+   Card(Ten, Spades) :: Nil
+
+distinct(sorted(rs))
+
+
+
+
+

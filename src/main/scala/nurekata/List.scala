@@ -27,3 +27,29 @@ enum List[+A]:
       case (i, x :: xs) => 
         val (left, right) = xs.splitAt(i - 1)
         (x :: left, right)
+
+  // 1. Implemet toString for List      
+  override def toString: String =
+    this match {
+      case Nil => mkString("List(", "", ")")
+      case _ => mkString("List(", ",", ")")
+    }
+
+  def mkString(start: String, sep: String, end: String): String = {
+    def count(list: List[A]): String = list match {
+      case Nil => ""
+      case head :: Nil => s"$head"
+      case head :: tail => s"$head$sep${count(tail)}"
+    }
+
+    s"$start${count(this)}$end"
+  }
+
+  // 3. implement general distinct
+  def distinct[A](sorted: List[A]): List[A] = {
+    sorted match {
+      case Nil => Nil
+      case x :: Nil => x :: Nil
+      case x :: y :: tail => if(x.equals(y)) y :: distinct(tail) else x :: y :: tail
+    }
+  }
