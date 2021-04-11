@@ -35,8 +35,3 @@ val cs2 = Card(Ace, Spades) :: Card(Ace, Diamonds) :: Card(Ace, Diamonds) :: Car
    Card(Ten, Spades) :: Nil
 
 distinct(sorted(rs))
-
-
-
-
-

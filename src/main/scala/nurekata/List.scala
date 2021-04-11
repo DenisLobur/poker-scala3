@@ -44,8 +44,7 @@ enum List[+A]:
   // 3. implement general distinct
   def distinct[A](sorted: List[A]): List[A] = {
     sorted match {
-      case Nil => Nil
-      case x :: Nil => x :: Nil
-      case x :: y :: tail => if(x.equals(y)) y :: distinct(tail) else x :: y :: tail
+      case x :: y :: tail => if (x.equals(y)) distinct(y :: tail) else x :: distinct(y :: tail)
+      case _ => sorted
     }
   }
