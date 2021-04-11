@@ -29,12 +29,8 @@ enum List[+A]:
         (x :: left, right)
 
   // 1. Implemet toString for List      
-  override def toString: String =
-    this match {
-      case Nil => mkString("List(", "", ")")
-      case _ => mkString("List(", ",", ")")
-    }
-
+  override def toString: String = mkString("List(", ",", ")")
+  
   def mkString(start: String, sep: String, end: String): String = {
     def count(list: List[A]): String = list match {
       case Nil => ""
