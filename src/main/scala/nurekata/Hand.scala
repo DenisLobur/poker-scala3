@@ -25,7 +25,7 @@ def sameSuit(cs: Cards): Boolean =
 def straight(cs: Cards) = 
   val rs = distinct(sorted(ranks(cs)))
   filterStraight(rs.zip(rs.drop(4)))
-    .head
+    .headOption
 
 def ranks(cs: Cards): List[Rank] = 
   cs match 

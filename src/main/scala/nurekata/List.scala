@@ -1,6 +1,7 @@
 package nurekata
 
 import scala.annotation.tailrec
+import nurekata.Option.*
 
 enum List[+A]: 
   case Nil
@@ -11,6 +12,11 @@ enum List[+A]:
   
   def head: A = 
     throw new NoSuchElementException("head of empty list")
+
+  def headOption: Option[A] =
+    this match 
+      case Nil => None
+      case x :: _  => Some(x)
 
   def length: Int = 
     this match
