@@ -27,3 +27,11 @@ enum List[+A]:
       case (i, x :: xs) => 
         val (left, right) = xs.splitAt(i - 1)
         (x :: left, right)
+
+  final def mkString(start: String, sep: String, end: String): String = 
+    this match 
+      case Nil => start + end
+      case c :: Nil => start + c + end  
+      case c :: cs => cs.mkString(start + c + sep, sep, end)
+  
+  override def toString = mkString("List(", ", ", ")")
