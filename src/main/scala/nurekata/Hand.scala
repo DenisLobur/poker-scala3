@@ -3,18 +3,21 @@ package nurekata
 import nurekata.List.*
 import nurekata.Rank
 import nurekata.Rank.*
+import nurekata.Hand.*
 
 type Cards = List[Card]
 
+enum Hand:
+  case RoyalFlush
+  case Straight(high: Rank)
+
+//TODO fix case List(10♠️, Q♠️, 2♥️, K♠️, A♠️, J♠️, 10♥️)
 def hasRoyalFlush(cs: Cards): Boolean = 
   val fs = filterGte10(cs)
   fs.length == 5 && sameSuit(fs)
 
 def filterGte10(cs: List[Card]): List[Card] = 
   cs.filter(c => c.rank >= Ten)
-
-def filterStraight(rs: List[(Rank, Rank)]): List[(Rank, Rank)] = 
-  rs.filter((f, l) => f.value == l.value + 4)
 
 def sameSuit(cs: Cards): Boolean = 
   cs match 
@@ -24,8 +27,12 @@ def sameSuit(cs: Cards): Boolean =
 
 def straight(cs: Cards) = 
   val rs = distinct(sorted(ranks(cs)))
-  filterStraight(rs.zip(rs.drop(4)))
+  rs.zip(rs.drop(4))
+    .filter((f, l) => f.value == l.value + 4)
     .headOption
+    .map((h, _) => Straight(h))
+    // .orElse(lowStraight(rs))
+
 
 def ranks(cs: Cards): List[Rank] = 
   cs match 

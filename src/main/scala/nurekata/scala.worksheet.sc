@@ -47,3 +47,4 @@ cards.drop(5)
 rf
 straight(Card(Nine, Clubs) :: rf)
 straight(rf)
+straight(cards)

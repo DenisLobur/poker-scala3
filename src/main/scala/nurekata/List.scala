@@ -42,6 +42,10 @@ enum List[+A]:
       case x :: xs =>
         if p(x) then x :: xs.filter(p)
                 else xs.filter(p)
+              
+  def find(p: A => Boolean): Option[A] = 
+    filter(p)
+      .headOption
 
   def drop(n: Int): List[A] = 
     if n <= 0 || isEmpty then this
