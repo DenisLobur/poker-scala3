@@ -10,13 +10,11 @@ def hasRoyalFlush(cs: Cards): Boolean =
   val fs = filterGte10(cs)
   fs.length == 5 && sameSuit(fs)
 
-def filterGte10(cs: Cards): List[Card] = 
-  cs match 
-    case Nil => Nil
-    case ::(c, cs) => 
-      if c.rank >= Ten
-      then c :: filterGte10(cs)
-      else filterGte10(cs)
+def filterGte10(cs: List[Card]): List[Card] = 
+  cs.filter(c => c.rank >= Ten)
+
+def filterStraight(rs: List[(Rank, Rank)]): List[(Rank, Rank)] = 
+  rs.filter((f, l) => f.value == l.value + 4)
 
 def sameSuit(cs: Cards): Boolean = 
   cs match 
@@ -25,8 +23,9 @@ def sameSuit(cs: Cards): Boolean =
     case _ => true
 
 def straight(cs: Cards) = 
-  val rs = sorted(ranks(cs))
-
+  val rs = distinct(sorted(ranks(cs)))
+  filterStraight(rs.zip(rs.drop(4)))
+    .head
 
 def ranks(cs: Cards): List[Rank] = 
   cs match 
@@ -46,10 +45,11 @@ private def merge(left: List[Rank], right: List[Rank]): List[Rank] =
     case (Nil, right) => right
     case (left, Nil) => left
     case (x :: xs, y :: ys) => 
-      if x.value > y.value
-      then x :: merge(xs, right)
-      else y :: merge(left, ys)
+      if x.value > y.value then x :: merge(xs, right)
+                           else y :: merge(left, ys)
 
 def distinct(sorted: List[Rank]): List[Rank] = 
-  ???
-  
+  sorted match 
+    case x :: y :: xs if x == y => distinct(y :: xs)
+    case x :: xs => x :: distinct(xs)
+    case Nil => Nil

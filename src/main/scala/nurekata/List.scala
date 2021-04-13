@@ -1,16 +1,26 @@
 package nurekata
 
+import scala.annotation.tailrec
+
 enum List[+A]: 
   case Nil
-  case ::(head: A, override val tail: List[A])
+  case ::(override val head: A, override val tail: List[A])
 
   def tail: List[A] = 
     throw new NoSuchElementException("tail of empty list")
+  
+  def head: A = 
+    throw new NoSuchElementException("head of empty list")
 
   def length: Int = 
     this match
       case Nil => 0
       case c :: cs => 1 + cs.length
+
+  def isEmpty: Boolean = 
+    this match 
+      case Nil => true
+      case _ => false
 
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
@@ -20,6 +30,17 @@ enum List[+A]:
       case (x :: xs, y :: ys) => (x, y) :: xs.zip(ys)
       case _ => Nil
 
+  def filter(p: A => Boolean): List[A] = 
+    this match 
+      case Nil => Nil
+      case x :: xs =>
+        if p(x) then x :: xs.filter(p)
+                else xs.filter(p)
+
+  def drop(n: Int): List[A] = 
+    if n <= 0 || isEmpty then this
+                         else tail.drop(n - 1)
+
   def splitAt(i: Int): (List[A], List[A]) = 
     (i, this) match
       case (0, _) => (Nil, this)
@@ -28,6 +49,7 @@ enum List[+A]:
         val (left, right) = xs.splitAt(i - 1)
         (x :: left, right)
 
+  @tailrec
   final def mkString(start: String, sep: String, end: String): String = 
     this match 
       case Nil => start + end
