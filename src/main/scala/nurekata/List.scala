@@ -59,6 +59,17 @@ enum List[+A]:
         val (left, right) = xs.splitAt(i - 1)
         (x :: left, right)
 
+  def forAll(p: A => Boolean): Boolean = 
+    this match
+      case Nil => true
+      case x :: xs => if p(x) then xs.forAll(p) else false     
+      
+  def find2(p: A => Boolean): Option[A] =
+    this match
+      case Nil => None
+      case x :: xs => if p(x) then Some(x) else xs.find2(p)
+    
+
   @tailrec
   final def mkString(start: String, sep: String, end: String): String = 
     this match 
