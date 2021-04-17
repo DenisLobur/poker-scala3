@@ -62,7 +62,7 @@ enum List[+A]:
   def forAll(p: A => Boolean): Boolean = 
     this match
       case Nil => true
-      case x :: xs => if p(x) then xs.forAll(p) else false     
+      case x :: xs => p(x) && xs.forAll(p)     
       
   def find2(p: A => Boolean): Option[A] =
     this match

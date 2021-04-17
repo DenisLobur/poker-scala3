@@ -18,7 +18,7 @@ enum Option[+A]:
 
   def orElse[B >: A](alt: => Option[B]): Option[B] =
     this match
-      case Some(x) => Some(x)
+      case Some(_) => this
       case _ => alt
     
 
