@@ -20,10 +20,8 @@ def filterGte10(cs: List[Card]): List[Card] =
   cs.filter(c => c.rank >= Ten)
 
 def sameSuit(cs: Cards): Boolean = 
-  cs match 
-    case x :: y :: cs => 
-      x.suit == y.suit && sameSuit(y :: cs)
-    case _ => true
+  cs.zip(cs.tail)
+    .forall((x, y) => x.suit == y.suit)
 
 def straight(cs: Cards) = 
   val rs = distinct(sorted(ranks(cs)))

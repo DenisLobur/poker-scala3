@@ -44,8 +44,16 @@ enum List[+A]:
                 else xs.filter(p)
               
   def find(p: A => Boolean): Option[A] = 
-    filter(p)
-      .headOption
+    this match 
+      case Nil => None
+      case x :: xs => 
+        if p(x) then Some(x)
+                else xs.find(p)
+
+  def forall(p: A => Boolean): Boolean = 
+    this match 
+      case Nil => true
+      case x :: xs => p(x) && xs.forall(p)
 
   def drop(n: Int): List[A] = 
     if n <= 0 || isEmpty then this
