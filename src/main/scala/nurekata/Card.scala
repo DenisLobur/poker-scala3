@@ -1,5 +1,7 @@
 package nurekata
 
+import nurekata.Option.*
+
 enum Suit:
   case Clubs, Diamonds, Hearts, Spades
 
@@ -10,7 +12,6 @@ enum Suit:
       case Hearts => "♥️"
       case Diamonds => "♦️"
     
-
 enum Rank:
   case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
        Jack, Queen, King, Ace

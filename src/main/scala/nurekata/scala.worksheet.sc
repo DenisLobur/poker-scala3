@@ -3,6 +3,8 @@ import nurekata.Rank.*
 import nurekata.List.*
 import nurekata.*
 
+"K♣ 2♣ T♠️"
+
 val cs = Card(Ace, Spades) :: Card(Nine, Spades) ::
    Card(Ten, Spades) :: Nil
 
@@ -32,10 +34,14 @@ cards
 cards.zip(cards.tail.tail)
 
 cards.drop(5)
+cards.reverse
 
-
+straight(rf)
+straight(Card(Five, Spades) :: Card(Four, Diamonds)
+  :: Card(Ace, Diamonds) :: Card(Two, Hearts)
+  :: Card(Three, Hearts) :: Card(Three, Diamonds) :: Nil)
 // 2 3 4 5 6 7 8
-   // 6 7 8
+   // 6 7 8 
    // (2, 6), (3, 7) ( 4, 8)
 
 

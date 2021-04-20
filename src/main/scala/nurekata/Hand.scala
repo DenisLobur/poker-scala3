@@ -4,8 +4,9 @@ import nurekata.List.*
 import nurekata.Rank
 import nurekata.Rank.*
 import nurekata.Hand.*
+import nurekata.Option.*
 
-type Cards = List[Card]
+
 
 enum Hand:
   case RoyalFlush
@@ -26,11 +27,18 @@ def sameSuit(cs: Cards): Boolean =
 def straight(cs: Cards) = 
   val rs = distinct(sorted(ranks(cs)))
   rs.zip(rs.drop(4))
-    .filter((f, l) => f.value == l.value + 4)
-    .headOption
+    .find((f, l) => f.value == l.value + 4)
     .map((h, _) => Straight(h))
-    // .orElse(lowStraight(rs))
+    .orElse(lowStraight(rs))
 
+def lowStraight(rs: List[Rank]): Option[Straight] = 
+  rs.headOption
+    .filter(_ == Ace)
+    .flatMap(a =>   
+       rs.reverse match 
+         case Two :: Three :: Four :: Five :: _ => Some(Straight(Five))
+         case _ => None
+    )
 
 def ranks(cs: Cards): List[Rank] = 
   cs match 
@@ -50,11 +58,15 @@ private def merge(left: List[Rank], right: List[Rank]): List[Rank] =
     case (Nil, right) => right
     case (left, Nil) => left
     case (x :: xs, y :: ys) => 
-      if x.value > y.value then x :: merge(xs, right)
-                           else y :: merge(left, ys)
+      if y.value > x.value then y :: merge(left, ys)
+                           else x :: merge(xs, right)
 
 def distinct(sorted: List[Rank]): List[Rank] = 
   sorted match 
     case x :: y :: xs if x == y => distinct(y :: xs)
     case x :: xs => x :: distinct(xs)
     case Nil => Nil
+
+object Hand:
+  def apply(cs: Cards): Hand = 
+    ???

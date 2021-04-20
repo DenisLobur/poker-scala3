@@ -14,6 +14,11 @@ enum Option[+A]:
       case None => None
       case Some(a) => Some(f(a))
 
+  def flatMap[B](f: A => Option[B]): Option[B] = 
+    this match 
+      case None => None
+      case Some(a) => f(a)
+
   def filter(p: A => Boolean): Option[A] = 
     this match 
       case Some(x) if p(x) => this

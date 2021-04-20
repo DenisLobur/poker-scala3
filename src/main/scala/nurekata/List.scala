@@ -28,6 +28,14 @@ enum List[+A]:
       case Nil => true
       case _ => false
 
+  def reverse: List[A] = 
+    def loop(xs: List[A], acc: List[A]): List[A] =
+      xs match 
+        case Nil => acc
+        case x :: xs => loop(xs, x :: acc)
+    
+    loop(this, Nil)
+
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
 
