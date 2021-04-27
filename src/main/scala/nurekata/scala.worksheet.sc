@@ -3,7 +3,15 @@ import nurekata.Rank.*
 import nurekata.List.*
 import nurekata.*
 
-"K♣ 2♣ T♠️"
+
+val s10 = Card(Ten, Spades)
+val sJ = Card(Jack, Spades)
+val sQ = Card(Queen, Spades)
+val sK = Card(King, Spades)
+val sA = Card(Ace, Spades)
+
+val h9 = Card(Nine, Hearts)
+
 
 val cs = Card(Ace, Spades) :: Card(Nine, Spades) ::
    Card(Ten, Spades) :: Nil
@@ -11,7 +19,6 @@ val cs = Card(Ace, Spades) :: Card(Nine, Spades) ::
 val cards = Card(Two, Hearts) :: cs
 
 filterGte10(cards)
-sameSuit(cards)
 sameSuit(cs)
 
 cards.length

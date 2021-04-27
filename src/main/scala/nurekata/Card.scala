@@ -27,7 +27,6 @@ enum Rank:
       case King => "K"
       case Queen => "Q"
       case Jack => "J"
-      case Ten => "T"
       case n => n.value.toString
 
 

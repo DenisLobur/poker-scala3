@@ -6,7 +6,7 @@ import nurekata.Rank.*
 import nurekata.Hand.*
 import nurekata.Option.*
 
-
+type Cards = List[Card]
 
 enum Hand:
   case RoyalFlush
@@ -34,16 +34,14 @@ def straight(cs: Cards) =
 def lowStraight(rs: List[Rank]): Option[Straight] = 
   rs.headOption
     .filter(_ == Ace)
-    .flatMap(a =>   
+    .flatMap(_ =>   
        rs.reverse match 
          case Two :: Three :: Four :: Five :: _ => Some(Straight(Five))
          case _ => None
     )
 
 def ranks(cs: Cards): List[Rank] = 
-  cs match 
-    case Nil => Nil
-    case x :: xs => x.rank :: ranks(xs)
+  cs.map(_.rank)
 
 def sorted(cs: List[Rank]): List[Rank] = 
   val m = cs.length / 2

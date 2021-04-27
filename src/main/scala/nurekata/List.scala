@@ -28,7 +28,13 @@ enum List[+A]:
       case Nil => true
       case _ => false
 
-  def reverse: List[A] = 
+  def map[B](f: A => B): List[B] = 
+    this match 
+      case Nil => Nil 
+      case x :: xs => f(x) :: xs.map(f)
+
+  def reverse: List[A] =
+    @tailrec 
     def loop(xs: List[A], acc: List[A]): List[A] =
       xs match 
         case Nil => acc
@@ -38,6 +44,11 @@ enum List[+A]:
 
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
+
+  def :::[B >: A](prefix: List[B]): List[B] = 
+    prefix match 
+      case Nil => this
+      case x :: xs => x :: xs ::: this
 
   def zip[B](that: List[B]): List[(A, B)] = 
     (this, that) match 
