@@ -56,3 +56,5 @@ straight(rf)
 straight(cards)
 
 ranks2(cards)
+
+cards ::: cards

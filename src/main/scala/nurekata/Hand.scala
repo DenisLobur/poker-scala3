@@ -45,10 +45,7 @@ def ranks(cs: Cards): List[Rank] =
     case Nil => Nil
     case x :: xs => x.rank :: ranks(xs)
 
-def ranks2(cs: Cards): List[Rank] =
-  cs match
-    case Nil => Nil
-    case x :: xs => x.rank :: xs.map(_.rank)
+def ranks2(cs: Cards): List[Rank] = cs.map(_.rank)
 
 def sorted(cs: List[Rank]): List[Rank] = 
   val m = cs.length / 2
