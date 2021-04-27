@@ -54,3 +54,5 @@ rf
 straight(Card(Nine, Clubs) :: rf)
 straight(rf)
 straight(cards)
+
+ranks2(cards)

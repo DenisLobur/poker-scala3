@@ -39,6 +39,18 @@ enum List[+A]:
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
 
+  def :::[B >: A](prefix: List[B]): List[B] = {
+    if (this.isEmpty) prefix
+    else if (prefix.isEmpty) this
+    else prefix.head :: prefix.tail ::: this
+  }  
+
+  def map[B](f: A => B): List[B] =
+    this match 
+      case Nil => Nil
+      case x :: xs => f(x) :: xs.map(f)
+    
+
   def zip[B](that: List[B]): List[(A, B)] = 
     (this, that) match 
       case (x :: xs, y :: ys) => (x, y) :: xs.zip(ys)
