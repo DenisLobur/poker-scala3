@@ -13,9 +13,11 @@ enum Hand:
   case Straight(high: Rank)
 
 //TODO fix case List(10♠️, Q♠️, 2♥️, K♠️, A♠️, J♠️, 10♥️)
-def hasRoyalFlush(cs: Cards): Boolean = 
+def royalFlush(cs: Cards): Option[RoyalFlush.type] = 
   val fs = filterGte10(cs)
-  fs.length == 5 && sameSuit(fs)
+  if fs.length == 5 && sameSuit(fs) then Some(RoyalFlush)
+                                    else None
+  
 
 def filterGte10(cs: List[Card]): List[Card] = 
   cs.filter(c => c.rank >= Ten)

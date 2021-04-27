@@ -22,12 +22,12 @@ filterGte10(cards)
 sameSuit(cs)
 
 cards.length
-hasRoyalFlush(cards)
+royalFlush(cards)
 
 val rf = Card(Ten, Spades) :: Card(Queen, Spades) :: Card(Two, Hearts) :: Card(King, Spades) :: Card(Ace, Spades) ::
  Card(Jack, Spades) :: Card(Five, Hearts) :: Nil
 
-hasRoyalFlush(rf)
+royalFlush(rf)
 
 val rs = ranks(cards)
 cards
@@ -61,3 +61,9 @@ rf
 straight(Card(Nine, Clubs) :: rf)
 straight(rf)
 straight(cards)
+
+val ns = 1 :: 2 :: 3 :: 0 :: Nil
+ns.reduce((max, n) => math.max(max, n))
+ns.foldLeft(0)((l, n) => l + 1)
+ns.reverse
+List(1, 2, 3, 0)

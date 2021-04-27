@@ -7,5 +7,7 @@ lazy val root = project
     version := "0.1.0",
 
     scalaVersion := scala3Version,
+    
+    libraryDependencies += "org.scalameta" %% "munit" % "0.7.25" % Test
 
   )

@@ -19,9 +19,23 @@ enum List[+A]:
       case x :: _  => Some(x)
 
   def length: Int = 
-    this match
-      case Nil => 0
-      case c :: cs => 1 + cs.length
+    foldLeft(0)((l, _) => l + 1)
+  
+  @tailrec
+  final def foldLeft[B](z: B)(op: (B, A) => B): B = 
+    this match 
+      case Nil => z
+      case x :: xs => xs.foldLeft(op(z, x))(op)
+
+  def foldRight[B](z: B)(op: (A, B) => B): B = 
+    reverse.foldLeft(z)((a, b) => op(b, a))
+
+  def reduceLeft[B >: A](z: B)(op: (B, B) => B): B = 
+    foldLeft(z)(op)
+
+  def reduce[B >: A](op: (B, B) => B): B = 
+    if isEmpty then throw new NoSuchElementException("reduce on empty list")
+               else tail.reduceLeft(head)(op)
 
   def isEmpty: Boolean = 
     this match 
@@ -34,13 +48,7 @@ enum List[+A]:
       case x :: xs => f(x) :: xs.map(f)
 
   def reverse: List[A] =
-    @tailrec 
-    def loop(xs: List[A], acc: List[A]): List[A] =
-      xs match 
-        case Nil => acc
-        case x :: xs => loop(xs, x :: acc)
-    
-    loop(this, Nil)
+    foldLeft(List.empty)((xs, x) => x :: xs)
 
   def ::[B >: A](a: B): List[B] = 
     List.::(a, this)
@@ -86,6 +94,22 @@ enum List[+A]:
         val (left, right) = xs.splitAt(i - 1)
         (x :: left, right)
 
+  // def sorted: List[A] = 
+  //   val m = this.length / 2
+  //   if m == 0 
+  //   then this
+  //   else 
+  //     val (left, right) = this.splitAt(m)
+  //     merge(left.sorted, right.sorted)
+
+  // private def merge(left: List[A], right: List[A])(ord: (A, A) => Int): List[A] =
+  //   (left, right) match
+  //     case (Nil, right) => right
+  //     case (left, Nil) => left
+  //     case (x :: xs, y :: ys) => 
+  //       if ord(y, x) > 0 then y :: merge(left, ys)
+  //                            else x :: merge(xs, right)
+
   @tailrec
   final def mkString(start: String, sep: String, end: String): String = 
     this match 
@@ -94,3 +118,10 @@ enum List[+A]:
       case c :: cs => cs.mkString(start + c + sep, sep, end)
   
   override def toString = mkString("List(", ", ", ")")
+
+
+object List:
+  def empty[A]: List[A] = Nil
+
+  def apply[A](xs: A*): List[A] =
+    xs.foldRight(empty[A])((x, ls) => x :: ls)

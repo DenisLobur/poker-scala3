@@ -27,3 +27,9 @@ enum Option[+A]:
   def orElse[B >: A](alt: => Option[B]): Option[B] = 
     if isEmpty then alt
                else this
+
+object Option: 
+  def apply[A](a: A): Option[A] = 
+    if a == null then None
+                 else Some(a)
+                 
