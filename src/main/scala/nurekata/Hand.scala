@@ -37,12 +37,12 @@ def straight(cs: Cards) =
       .map((h, _) => Straight(h))
       .orElse(lowStraight(rs))
 
-// def flush(cs: Cards): Option[Flush] = 
-//    cs.groupBy(_.suit)
-//       .values
-//       .find(_.length >= 5)
-//       .map[Flush](cs => Flush(cs.map(_.rank)
-//                         .sorted))
+def flush(cs: Cards): Option[Flush] = 
+   cs.groupBy(_.suit)
+      .values
+      .find(_.length >= 5)
+      .map[Flush](cs => Flush(cs.map(_.rank)
+                        .sorted))
 
 def lowStraight(rs: List[Rank]): Option[Straight] = 
    rs.headOption

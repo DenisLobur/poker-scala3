@@ -29,7 +29,6 @@ val rf = Card(Ten, Spades) :: Card(Queen, Spades) :: Card(Two, Hearts) :: Card(K
  Card(Jack, Spades) :: Card(Five, Hearts) :: Nil
 
 
-
 royalFlush(rf)
 rf.map(_.rank).sorted
 
