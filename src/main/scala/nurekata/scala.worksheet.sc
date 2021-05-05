@@ -2,7 +2,8 @@ import nurekata.Suit.*
 import nurekata.Rank.*
 import nurekata.List.*
 import nurekata.*
-
+import nurekata.std.*
+import nurekata.given
 
 val s10 = Card(Ten, Spades)
 val sJ = Card(Jack, Spades)
@@ -27,12 +28,15 @@ royalFlush(cards)
 val rf = Card(Ten, Spades) :: Card(Queen, Spades) :: Card(Two, Hearts) :: Card(King, Spades) :: Card(Ace, Spades) ::
  Card(Jack, Spades) :: Card(Five, Hearts) :: Nil
 
+
+
 royalFlush(rf)
+rf.map(_.rank).sorted
 
 val rs = ranks(cards)
 cards
 cards.splitAt(2)
-sorted(rs)
+
 cards.zip(5 :: 4 :: 3 :: Nil)
 
 cards.zip(cards.tail)
@@ -42,6 +46,9 @@ cards.zip(cards.tail.tail)
 
 cards.drop(5)
 cards.reverse
+
+given cardOrd: Ordering[Card] = (x, y) => x.rank.ordinal.compare(y.rank.ordinal)
+cards.sorted
 
 straight(rf)
 straight(Card(Five, Spades) :: Card(Four, Diamonds)
