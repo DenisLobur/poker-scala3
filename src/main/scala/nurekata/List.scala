@@ -48,6 +48,11 @@ enum List[+A]:
          case Nil => Nil 
          case x :: xs => f(x) :: xs.map(f)
 
+   def flatMap[B](f: A => List[B]): List[B] = 
+      this match
+         case Nil => Nil
+         case x :: xs => f(x) ::: xs.flatMap(f)      
+
    def reverse: List[A] =
       foldLeft(List.empty)((xs, x) => x :: xs)
 

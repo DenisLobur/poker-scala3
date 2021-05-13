@@ -46,7 +46,8 @@ cards.zip(cards.tail.tail)
 cards.drop(5)
 cards.reverse
 
-given cardOrd: Ordering[Card] = (x, y) => x.rank.ordinal.compare(y.rank.ordinal)
+//given cardOrd: Ordering[Card] = (x, y) => x.rank.ordinal.compare(y.rank.ordinal)
+given cardOrd: Ordering[Card] = (x,y) => y.rank.ordinal.compare(x.rank.ordinal)
 cards.sorted
 
 straight(rf)
@@ -64,6 +65,7 @@ straight(Card(Five, Spades) :: Card(Four, Diamonds)
 
 
 rf
+rf.sorted
 straight(Card(Nine, Clubs) :: rf)
 straight(rf)
 straight(cards)
@@ -73,3 +75,12 @@ ns.reduce((max, n) => math.max(max, n))
 ns.foldLeft(0)((l, n) => l + 1)
 ns.reverse
 List(1, 2, 3, 0)
+
+val rfCards = Card(Ten, Spades) :: Card(Queen, Spades)
+:: Card(Two, Hearts) :: Card(King, Spades) :: Card(Ace, Spades)
+:: Card(Jack, Spades) :: Card(Ten, Hearts) :: Nil
+
+rfCards.sorted
+royalFlush(rfCards)
+
+

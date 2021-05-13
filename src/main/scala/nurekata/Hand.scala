@@ -20,11 +20,16 @@ given rankOrdAsc: Ordering[Rank] = Rank.ord.reverse
 //TODO fix case List(10♠️, Q♠️, 2♥️, K♠️, A♠️, J♠️, 10♥️)
 def royalFlush(cs: Cards): Option[RoyalFlush.type] = 
    val fs = filterGte10(cs)
-   if fs.length == 5 && sameSuit(fs) then Some(RoyalFlush)
-                                    else None
+   val fl = flush(fs)
+   fl match
+      case Some(x) => Some(RoyalFlush)
+      case _ => None
 
 def filterGte10(cs: List[Card]): List[Card] = 
    cs.filter(c => c.rank >= Ten)
+
+def filterLte10(cs: List[Card]): List[Card] =
+   cs.filter(c => c.rank <= Nine)   
 
 def sameSuit(cs: Cards): Boolean = 
    cs.zip(cs.tail)
@@ -36,6 +41,8 @@ def straight(cs: Cards) =
       .find((f, l) => f.value == l.value + 4)
       .map((h, _) => Straight(h))
       .orElse(lowStraight(rs))
+
+def straightFlush(cs: Cards): Option[StraightFlush] = ???
 
 def flush(cs: Cards): Option[Flush] = 
    cs.groupBy(_.suit)

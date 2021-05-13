@@ -22,6 +22,9 @@ enum Rank:
    def >= (that: Rank): Boolean = 
       this.ordinal >= that.ordinal
 
+   def <= (that: Rank): Boolean = 
+      this.ordinal <= that.ordinal   
+
    override def toString = 
       this match 
          case Ace => "A"
