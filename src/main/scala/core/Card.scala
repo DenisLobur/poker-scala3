@@ -3,12 +3,20 @@ package core
 import Rank.*
 import Suit.*
 
+import scala.annotation.targetName
+
 enum Rank:
     case Two, Three, Four, Five, Six, Seven,
         Eight, Nine, Ten, Jack, Queen, King, Ace
 
+    val value = ordinal + 2
+
     def isBroadway: Boolean =
-        ordinal >= Ten.ordinal
+        this >= Rank.Ten
+
+    @targetName("greaterThen")
+    def >=(other: Rank): Boolean =
+        ordinal >= other.ordinal
 
     override def toString: String =
         this match
@@ -17,7 +25,7 @@ enum Rank:
             case Queen => "Q"
             case Jack  => "J"
             case Ten   => "T"
-            case n     => (n.ordinal + 2).toString()
+            case _     => value.toString
 
 enum Suit:
     case Hearts, Diamonds, Clubs, Spades
@@ -30,5 +38,10 @@ enum Suit:
             case Spades   => "♠"
 
 case class Card(rank: Rank, suit: Suit):
+
     override def toString: String =
         rank.toString + suit.toString
+
+    @targetName("greaterThen")
+    def >=(other: Card): Boolean =
+        rank.value >= other.rank.value
